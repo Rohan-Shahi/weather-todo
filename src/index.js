@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { DarkModeContextProvider } from './context/darkModeContext';
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <DarkModeContextProvider>
     <App />
-  </React.StrictMode>,
+    </DarkModeContextProvider>
+  </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 

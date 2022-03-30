@@ -1,7 +1,11 @@
-import React from 'react'
+import React from "react";
+import CityWeather from "./CityWeather";
 
 export default function Weather() {
   return (
-    <div>Weather</div>
-  )
+    <>
+      <h3 style={{color: 'rgb(94, 93, 93)'}}>Search Your City Weather</h3>
+      <CityWeather />
+    </>
+  );
 }

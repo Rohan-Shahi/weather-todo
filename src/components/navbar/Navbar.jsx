@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import './Navbar.scss'
-import logo from '../../images/wicc.png'
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from "react";
+import "./Navbar.scss";
+import logo from "../../images/wicc.png";
+import { Link } from "react-router-dom";
+import { DarkModeContext } from "../../context/darkModeContext";
 
-
-{/* <script>
+{
+  /* <script>
 const body = document.querySelector('body'),
 sidebar = body.querySelector('nav'),
 toggle = body.querySelector(".toggle"),
@@ -31,70 +32,80 @@ modeText.innerText = "Dark mode";
 
 }
 });
-</script> */}
+</script> */
+}
 
 export default function Navbar() {
- 
-    const [isClose,setIsClose] = useState(false);
+  const [isClose, setIsClose] = useState(false);
 
-    const [isDark,setIsDark] = useState(false);
+  const { darkMode, dispatch } = useContext(DarkModeContext);
 
   return (
-    <nav className={`sidebar ${ isClose ? 'close' : null }`}>
-    <header>
+    <nav
+      className={`sidebar ${darkMode ? "dark" : null} ${
+        isClose ? "close" : null
+      }`}
+    >
+      <header>
         <div className="image-text">
-            <span className="image">
-             <img src={logo} alt="WICC"/>
-            </span>
+          <span className="image">
+            <img src={logo} alt="WICC" />
+          </span>
 
-            <div className="text logo-text">
-                <span className="name">WICC</span>
-                <span className="profession">Web developer</span>
-            </div>
+          <div className="text logo-text">
+            <span className="name">WICC</span>
+            <span className="profession">Web developer</span>
+          </div>
         </div>
 
-        <i className='bx bx-chevron-right toggle' onClick={() => {setIsClose(!isClose) }}></i>
-    </header>
+        <i
+          className="bx bx-chevron-right toggle"
+          onClick={() => {
+            setIsClose(!isClose);
+          }}
+        ></i>
+      </header>
 
-    <div className="menu-bar">
+      <div className="menu-bar">
         <div className="menu">
+          <ul className="menu-links">
+            <li className="nav-link">
+              <Link to="/">
+                <i className="bx bx-cloud-lightning icon"></i>
+                <span className="text nav-text">Weather</span>
+              </Link>
+            </li>
 
-            <ul className="menu-links">
-                <li className="nav-link">
-                    <Link to='/'>
-                        <i className='bx bx-cloud-lightning icon' ></i>
-                        <span className="text nav-text">Weather</span>
-                    </Link>
-                </li>
-
-                <li className="nav-link">
-                    <Link to='/todo'>
-                        <i className='bx bx-notepad icon' ></i>
-                        <span className="text nav-text">Manage TODO</span>
-                    </Link>
-                </li>
-
-
-            </ul>
+            <li className="nav-link">
+              <Link to="/todo">
+                <i className="bx bx-notepad icon"></i>
+                <span className="text nav-text">Manage TODO</span>
+              </Link>
+            </li>
+          </ul>
         </div>
 
         <div className="bottom-content">
+          <li className="mode">
+            <div className="sun-moon">
+              <i className="bx bx-moon icon moon"></i>
+              <i className="bx bx-sun icon sun"></i>
+            </div>
+            <span className="mode-text text">
+              {darkMode ? `Light Mode` : "Dark Mode"}
+            </span>
 
-            <li className="mode">
-                <div className="sun-moon">
-                    <i className='bx bx-moon icon moon'></i>
-                    <i className='bx bx-sun icon sun'></i>
-                </div>
-                <span className="mode-text text">Dark mode</span>
-
-                <div className="toggle-switch">
-                    <span className="switch"></span>
-                </div>
-            </li>
-            
+            <div
+              className={`toggle-switch ${darkMode ? "dark" : null}`}
+              onClick={() => {
+                dispatch({ type: "TOGGLE" });
+              }}
+            >
+              <span className="switch"></span>
+            </div>
+          </li>
         </div>
-    </div>
-
-</nav>
-  )
+      </div>
+    </nav>
+  );
 }
