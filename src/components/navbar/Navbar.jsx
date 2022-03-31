@@ -4,37 +4,6 @@ import logo from "../../images/wicc.png";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 
-{
-  /* <script>
-const body = document.querySelector('body'),
-sidebar = body.querySelector('nav'),
-toggle = body.querySelector(".toggle"),
-searchBtn = body.querySelector(".search-box"),
-modeSwitch = body.querySelector(".toggle-switch"),
-modeText = body.querySelector(".mode-text");
-
-
-toggle.addEventListener("click" , () =>{
-sidebar.classList.toggle("close");
-})
-
-searchBtn.addEventListener("click" , () =>{
-sidebar.classList.remove("close");
-})
-
-modeSwitch.addEventListener("click" , () =>{
-body.classList.toggle("dark");
-
-if(body.classList.contains("dark")){
-modeText.innerText = "Light mode";
-}else{
-modeText.innerText = "Dark mode";
-
-}
-});
-</script> */
-}
-
 export default function Navbar() {
   const [isClose, setIsClose] = useState(false);
 
@@ -77,9 +46,9 @@ export default function Navbar() {
             </li>
 
             <li className="nav-link">
-              <Link to="/todo">
+              <Link to="/notes">
                 <i className="bx bx-notepad icon"></i>
-                <span className="text nav-text">Manage TODO</span>
+                <span className="text nav-text">Manage NOTES</span>
               </Link>
             </li>
           </ul>
