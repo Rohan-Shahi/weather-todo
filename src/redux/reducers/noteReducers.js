@@ -1,4 +1,4 @@
-import { ADD_NOTE, DELETE_NOTE } from "../constant";
+import { ADD_NOTE, DELETE_NOTE, EDIT_NOTE } from "../constant";
 
 const initialState = {
   notesList: localStorage.getItem('notes') ? JSON.parse(localStorage.getItem('notes')) : [],
@@ -24,6 +24,22 @@ export const noteReducer = (state = initialState, action) => {
         notesList
       }  
 
+    case EDIT_NOTE:
+      const updatedList = [];  
+      state.notesList.forEach((note, i) => {
+        if(action.payload.editInd !== i){
+          updatedList.push(note);
+        }else{
+          const title = action.payload.title;
+          const description = action.payload.description;
+          const obj = {title,description};
+          updatedList.push(obj)
+        }
+      })
+      return{
+        ...state,
+        notesList : updatedList
+      }
     default:
       return state;
   }
