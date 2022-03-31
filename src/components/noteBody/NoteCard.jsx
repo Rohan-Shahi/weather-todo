@@ -4,8 +4,9 @@ import { deleteNote } from "../../redux/actions/noteActions";
 import "./Note.scss";
 import EditNote from "../modals/EditNote";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 export default function NoteCard({ title, description, ind, lastModified }) {
   const [editTitle, setEditTitle] = useState(null);
@@ -14,10 +15,44 @@ export default function NoteCard({ title, description, ind, lastModified }) {
   const [modal, setModal] = useState(false);
 
   const dispatch = useDispatch();
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
 
   const handleDelete = (id) => {
-    dispatch(deleteNote(id));
-    notifyDelete();
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteNote(id));
+          notifyDelete();
+          swalWithBootstrapButtons.fire(
+            "Deleted!",
+            "Your Note has been deleted.",
+            "success"
+          );
+        } else if (
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your NOTE is safe :)",
+            "error"
+          );
+        }
+      });
   };
 
   const handleEdit = (title, description, ind) => {
@@ -31,12 +66,16 @@ export default function NoteCard({ title, description, ind, lastModified }) {
     setModal(!modal);
   };
 
-  const notify = () => toast.success("Note Updated");
-  const notifyDelete = ()=> toast.error("Note Deleted!");
+  const notify = () => toast.success("Note Updated",{
+    autoClose: 2000
+  });
+  const notifyDelete = () => toast.error("Note Deleted!",{
+    autoClose: 2000
+  });
 
   return (
     <>
-    <ToastContainer autoClose={3000}/>
+      <ToastContainer />
       <div
         className="card text-dark bg-light mb-3"
         style={{ maxWidth: "18rem", minHeight: "18rem" }}
@@ -75,8 +114,8 @@ export default function NoteCard({ title, description, ind, lastModified }) {
               : description}
           </p>
         </div>
-        <div class="card-footer">
-          <small class="text-muted">
+        <div className="card-footer">
+          <small className="text-muted">
             Last Modified:{" "}
             {new Date(lastModified).toLocaleDateString("en-GB", {
               hour: "2-digit",

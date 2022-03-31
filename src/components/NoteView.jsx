@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { DarkModeContext } from "../context/darkModeContext";
 
 export default function NoteView() {
+  const {darkMode} = useContext(DarkModeContext);
   const { id } = useParams();
 
   const notesList = useSelector((state) => {
@@ -16,7 +18,7 @@ export default function NoteView() {
 
   return (
     <>
-      <h3 className="text-center mb-5 pt-4">NoteView</h3>
+      <h3 className={`text-center mb-5 pt-4 ${darkMode? 'text-light': null}`}>Note View</h3>
       <div className="container">
         <div className="card">
           <div className="card-header">{`Note ${Number(id) + 1}`}</div>

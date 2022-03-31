@@ -3,13 +3,21 @@ import "./Navbar.scss";
 import logo from "../../images/wicc.png";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Navbar() {
   const [isClose, setIsClose] = useState(false);
 
   const { darkMode, dispatch } = useContext(DarkModeContext);
 
+  const notify = () => toast.info("Mode Switched",{
+    autoClose: 1000
+  });
+
   return (
+    <>
+    <ToastContainer/>
     <nav
       className={`sidebar ${darkMode ? "dark" : null} ${
         isClose ? "close" : null
@@ -58,7 +66,7 @@ export default function Navbar() {
           <li className="mode">
             <div className="sun-moon">
               <i className="bx bx-moon icon moon"></i>
-              <i className="bx bx-sun icon sun"></i>
+              <i className="bx bx-sun  icon sun"></i>
             </div>
             <span className="mode-text text">
               {darkMode ? `Light Mode` : "Dark Mode"}
@@ -68,6 +76,7 @@ export default function Navbar() {
               className={`toggle-switch ${darkMode ? "dark" : null}`}
               onClick={() => {
                 dispatch({ type: "TOGGLE" });
+                notify();
               }}
             >
               <span className="switch"></span>
@@ -76,5 +85,6 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    </>
   );
 }

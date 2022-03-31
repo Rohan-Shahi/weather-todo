@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AddNote from "../modals/AddNote";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { DarkModeContext } from "../../context/darkModeContext";
 
 export default function NoteHeader() {
 
+    const {darkMode} = useContext(DarkModeContext);
     const [modal,setModal] = useState(false);
     const toggle = () => {
         setModal(!modal);
     }
-    const notify = () => toast.success("Note Added");
+    const notify = () => toast.success("Note Added",{
+      autoClose: 2000
+    });
   return (
     <>
-      <ToastContainer autoClose={3000}/>
+      <ToastContainer />
       <div className="note-header text-center">
-        <h2 className="pt-3">MANAGE YOUR NOTES</h2>
+        <h2 className={`pt-3 ${darkMode ? 'text-light' : null}`}>MANAGE YOUR NOTES</h2>
 
         <button
           className="btn btn-primary"
