@@ -18,7 +18,7 @@ export default function EditNote({ modal, toggle,editTitle,editDesc,editInd }) {
   };
 
   const onSubmit = (values, { resetForm }) => {
-    const finalValue = {...values,editInd};
+    const finalValue = {...values,editInd,lastModified: Date.now()};
     dispatch(editNote(finalValue));
     resetForm();
     toggle();

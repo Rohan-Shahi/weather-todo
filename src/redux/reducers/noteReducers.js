@@ -32,7 +32,8 @@ export const noteReducer = (state = initialState, action) => {
         }else{
           const title = action.payload.title;
           const description = action.payload.description;
-          const obj = {title,description};
+          const lastModified = action.payload.lastModified;
+          const obj = {title,description,lastModified};
           updatedList.push(obj)
         }
       })

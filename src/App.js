@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import Notes from "./notes";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import NoteView from "./components/NoteView";
 
 function App() {
   const {darkMode} = useContext(DarkModeContext);
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Weather />} />
           <Route path="/notes" element={<Notes/>} />
+          <Route path="/note/:id" element={<NoteView/>} />
         </Routes>
       </BrowserRouter>
     </div>

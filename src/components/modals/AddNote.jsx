@@ -19,7 +19,8 @@ export default function AddNote({ modal, toggle }) {
   const dispatch = useDispatch();
 
   const onSubmit = (values, { resetForm }) => {
-    dispatch(createNote(values))
+    const finalValues = {...values,lastModified: Date.now()}
+    dispatch(createNote(finalValues))
     resetForm();
     toggle();
   };

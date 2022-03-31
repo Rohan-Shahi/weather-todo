@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { deleteNote } from "../../redux/actions/noteActions";
 import "./Note.scss"
 import EditNote from "../modals/EditNote";
+import { Link } from "react-router-dom";
 
 export default function NoteCard({title,description,ind}) {
 
@@ -40,12 +41,13 @@ export default function NoteCard({title,description,ind}) {
         <div style={{display:'inline-block'}}>
         <i className="bx bx-edit" onClick={() => {handleEdit(title,description,ind)}}></i>
         <i className="bx bx-trash" onClick={()=>{ handleDelete(ind)}}></i>
+        <Link to={`/note/${ind}`}> <i className="bx bx-show"></i></Link>
         </div>
       </div>
       <div className="card-body">
-        <h5 className="card-title">{title}</h5>
+        <h5 className="card-title">{title.length > 17 ? title.slice(0,20) + '...' : title}</h5>
         <p className="card-text">
-         {description}
+         {description.length > 89? description.slice(0,89) + '...' : description}
         </p>
       </div>
     </div>
