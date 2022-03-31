@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import AddNote from "../modals/AddNote";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function NoteHeader() {
 
@@ -7,8 +9,10 @@ export default function NoteHeader() {
     const toggle = () => {
         setModal(!modal);
     }
+    const notify = () => toast.success("Note Added");
   return (
     <>
+      <ToastContainer autoClose={3000}/>
       <div className="note-header text-center">
         <h2 className="pt-3">MANAGE YOUR NOTES</h2>
 
@@ -20,7 +24,7 @@ export default function NoteHeader() {
           Add Note
         </button>
 
-        <AddNote modal={modal} toggle={toggle} />
+        <AddNote modal={modal} toggle={toggle} notify={notify}/>
       </div>
     </>
   );

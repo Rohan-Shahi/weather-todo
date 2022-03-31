@@ -15,7 +15,7 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description field cannot be empty"),
 });
 
-export default function AddNote({ modal, toggle }) {
+export default function AddNote({ modal, toggle,notify }) {
   const dispatch = useDispatch();
 
   const onSubmit = (values, { resetForm }) => {
@@ -23,6 +23,7 @@ export default function AddNote({ modal, toggle }) {
     dispatch(createNote(finalValues))
     resetForm();
     toggle();
+    notify();
   };
   return (
     <Modal isOpen={modal} toggle={toggle}>

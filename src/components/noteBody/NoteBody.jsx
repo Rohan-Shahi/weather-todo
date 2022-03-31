@@ -22,6 +22,7 @@ export default function NoteBody() {
               <NoteCard
                 title={note.title}
                 description={note.description}
+                lastModified={note.lastModified}
                 ind={ind}
               />
             </div>
