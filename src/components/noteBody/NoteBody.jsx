@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { DarkModeContext } from "../../context/darkModeContext";
 import NoteCard from "./NoteCard";
 
 export default function NoteBody() {
+
+  const {darkMode} = useContext(DarkModeContext);
+
   const notesList = useSelector((state) => {
     return state.note.notesList;
   });
@@ -15,7 +19,7 @@ export default function NoteBody() {
     <div className="container mt-5">
       <div className="row">
         {notesList.length === 0 ? (
-          <h3 className="text-center">Click add note to add some note...</h3>
+          <h3 className={`text-center ${darkMode ? 'text-light' : null}`}>Click add note to add some note...</h3>
         ) : (
           notesList.map((note, ind) => (
             <div className="col-md-3" key={ind}>

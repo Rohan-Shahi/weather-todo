@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteNote } from "../../redux/actions/noteActions";
 import "./Note.scss";
@@ -7,8 +7,10 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import { ColorContext } from "../../context/customColor.js/colorContext";
 
 export default function NoteCard({ title, description, ind, lastModified }) {
+  const { color } = useContext(ColorContext);
   const [editTitle, setEditTitle] = useState(null);
   const [editDesc, setEditDesc] = useState(null);
   const [editInd, setEditInd] = useState(null);
@@ -43,9 +45,7 @@ export default function NoteCard({ title, description, ind, lastModified }) {
             "Your Note has been deleted.",
             "success"
           );
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire(
             "Cancelled",
             "Your NOTE is safe :)",
@@ -66,19 +66,23 @@ export default function NoteCard({ title, description, ind, lastModified }) {
     setModal(!modal);
   };
 
-  const notify = () => toast.success("Note Updated",{
-    autoClose: 2000
-  });
-  const notifyDelete = () => toast.error("Note Deleted!",{
-    autoClose: 2000
-  });
+  const notify = () =>
+    toast.success("Note Updated", {
+      autoClose: 2000,
+    });
+  const notifyDelete = () =>
+    toast.error("Note Deleted!", {
+      autoClose: 2000,
+    });
 
   return (
     <>
       <ToastContainer />
       <div
-        className="card text-dark bg-light mb-3"
-        style={{ maxWidth: "18rem", minHeight: "18rem" }}
+        className={`card ${
+          color === "#ffffff" ? 'text-dark' : 'text-light'
+        } mb-3`}
+        style={{ maxWidth: "18rem", minHeight: "18rem", background: color }}
       >
         <div
           className="card-header"

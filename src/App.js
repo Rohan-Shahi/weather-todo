@@ -6,6 +6,7 @@ import Notes from "./notes";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import NoteView from "./components/NoteView";
+import Settings from "./components/Settings";
 
 function App() {
   const {darkMode} = useContext(DarkModeContext);
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Weather />} />
           <Route path="/notes" element={<Notes/>} />
           <Route path="/note/:id" element={<NoteView/>} />
+          <Route path="/settings" element={<Settings/>}/>
         </Routes>
       </BrowserRouter>
     </div>

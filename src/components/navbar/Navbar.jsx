@@ -59,6 +59,13 @@ export default function Navbar() {
                 <span className="text nav-text">Manage NOTES</span>
               </Link>
             </li>
+
+            <li className="nav-link">
+              <Link to="/settings">
+                <i className="bx bx-cog icon"></i>
+                <span className="text nav-text">Settings</span>
+              </Link>
+            </li>
           </ul>
         </div>
 

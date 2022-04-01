@@ -7,13 +7,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { DarkModeContextProvider } from './context/darkModeContext';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import ColorState from './context/customColor.js/ColorState';
 
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
+    <ColorState>
     <DarkModeContextProvider>
     <App />
     </DarkModeContextProvider>
+    </ColorState>
   </React.StrictMode>
   </Provider>
   ,
